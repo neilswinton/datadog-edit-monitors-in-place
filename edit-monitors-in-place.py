@@ -5,12 +5,13 @@
 
 import json
 from time import gmtime, strftime
+from os import environ
 
 from datadog import initialize
 
 options = {
-    'api_key': 'foo',
-    'app_key': 'bar'
+    'api_key': environ['DATADOG_API_KEY']
+    'app_key': environ['DATADOG_APP_KEY']
 }
 
 initialize(**options)
@@ -38,7 +39,7 @@ while True:
             break
         except ValueError as err:
             print("Check your json and try again!", err)
-            
+
 # Update existing monitors
 for monitor in imported_datadog_monitors:
     print "Uploading " + monitor['name']
